@@ -12,7 +12,10 @@ def insert_topic(request):
     if bl:
         TO=TTO[0]
         TO.save()
-        return HttpResponse('Topic is created')
+        #return HttpResponse('Topic is created')
+        d={'topics':Topic.objects.all()}
+
+        return render(request,'retrieve_topics.html',d)
     else:
         return HttpResponse('Topic is already present')
 
@@ -42,16 +45,24 @@ def insert_webpage(request):
 
         WO=Webpage.objects.get_or_create(topic_name=TO,name=na,url=url,email=email)[0]
         WO.save()
-        return HttpResponse('webpage is created')
+        #return HttpResponse('webpage is created')
+        d={'webpages':Webpage.objects.all()}
+        return render(request,'retrieve_webpages.html',d)
+
     else:
         return HttpResponse('Topic is not there so i cant create ur webepage object')
 
 
+def retrieve_topics(request):
+
+    d={'topics':Topic.objects.all()}
+    return render(request,'retrieve_topics.html',d)
 
 
 
-
-
+def retrieve_webpages(request):
+    d={'webpages':Webpage.objects.all()}
+    return render(request,'retrieve_webpages.html',d)
 
 
 
